@@ -1,7 +1,7 @@
 package org.springframework.context;
 
-import org.w3c.dom.events.Event;
+import java.util.EventListener;
 
-public interface ApplicationListener <E extends ApplicationEvent> extends Event {
+public interface ApplicationListener <E extends ApplicationEvent> extends EventListener {
     void onApplicationEvent(E event);
 }

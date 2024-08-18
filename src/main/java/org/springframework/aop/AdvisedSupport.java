@@ -17,11 +17,15 @@ public class AdvisedSupport {
 
     private MethodMatcher methodMatcher;
 
+    /**
+     * 缓存，如果某个方法的拦截器已经取出，那么再次取的时候直接从缓存调取
+     */
     private transient Map<Integer, List<Object>> methodCache;
 
     AdvisorChainFactory advisorChainFactory = new DefaultAdvisorChainFactory();
 
     private List<Advisor> advisors = new ArrayList<>();
+
 
     public AdvisedSupport(){
         this.methodCache = new ConcurrentHashMap<>(32);
@@ -67,6 +71,7 @@ public class AdvisedSupport {
      */
     public List<Object> getInterceptorsAndDynamicInterceptionAdvice(Method method,Class<?> targetClass){
         Integer cacheKey = method.hashCode();
+        // 先从缓存中寻找是否存在拦截器链
         List<Object> cached = this.methodCache.get(cacheKey);
         if (cached == null){
             cached = this.advisorChainFactory.getInterceptorsAndDynamicInterceptionAdvice(

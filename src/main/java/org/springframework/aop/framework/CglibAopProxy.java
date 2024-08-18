@@ -23,6 +23,7 @@ public class CglibAopProxy implements AopProxy{
         enhancer.setSuperclass(advised.getTargetSource().getTarget().getClass());
         // 获得实现类的接口
         enhancer.setInterfaces(advised.getTargetSource().getTargetClass());
+        // 设置回调方法
         enhancer.setCallback(new DynamicAdvisedInterceptor(advised));
         return enhancer.create();
     }

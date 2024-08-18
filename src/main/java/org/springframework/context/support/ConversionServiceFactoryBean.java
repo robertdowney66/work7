@@ -18,8 +18,6 @@ public class ConversionServiceFactoryBean implements FactoryBean<ConversionServi
 
     private GenericConversionService conversionService;
 
-
-
     @Override
     public ConversionService getObject() throws Exception {
         return conversionService;

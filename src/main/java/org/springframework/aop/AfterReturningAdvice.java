@@ -1,11 +1,9 @@
-package org.springframework.aop.framework;
+package org.springframework.aop;
 
-import org.springframework.aop.AfterAdvice;
+import org.aopalliance.aop.Advice;
 
 import java.lang.reflect.Method;
 
 public interface AfterReturningAdvice extends AfterAdvice {
-
     void afterReturning(Object returnValue, Method method,Object[] args,Object target)throws Throwable;
-
 }

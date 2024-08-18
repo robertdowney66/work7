@@ -22,8 +22,11 @@ import java.util.Map;
 
 public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
     public static final String APPLICATION_EVENT_MULTICASTER_BEAN_NAME = "applicationEventMulticaster";
+
     public static final String CONVERSION_SERVICE_BEAN_NAME = "conversionService";
+
     private ApplicationEventMulticaster applicationEventMulticaster;
+
     public abstract ConfigurableListableBeanFactory getBeanFactory();
     @Override
     public Object getBean(String beanName) throws BeansException {
@@ -100,7 +103,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     }
 
     @Override
-    public void  publishEvent(ApplicationEvent event){
+    public void publishEvent(ApplicationEvent event){
         // 调用事件发布者的multicastEvent方法
         applicationEventMulticaster.multicastEvent(event);
     }
@@ -125,7 +128,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
      * @param beanFactory
      */
     protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory){
-        // 设置类型转换器
+        // 先获取类型转换器
         if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME)) {
             // 判断BeanDefinition中是否有CONVERSION_SERVICE_BEAN_NAME
             Object conversionService = beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME);
